@@ -135,7 +135,7 @@ buttonWrapper.appendChild(startButton);
 const lapButton = document.createElement("button");
 lapButton.className = "btn";
 lapButton.id = "btn-add-lap";
-lapButton.innerText = "Add Lap"
+lapButton.innerText = "Add Lap";
 buttonWrapper.appendChild(lapButton);
 
 // reset button
