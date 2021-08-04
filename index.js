@@ -206,3 +206,153 @@ const aPr = document.createElement("a");
 aPr.href = "https://www.twitter.com";
 aPr.innerText = "Privacy Policy";
 footerItems.appendChild(aPr);
+
+// data
+
+// const data = {
+//   msec: 0,
+//   sec: 0,
+//   min: 0,
+//   hr: 0,
+//   interval: 0
+// }
+
+let msec = 0;
+let sec = 0;
+let min = 0;
+let hr = 0;
+let interval = null;
+let switcher = "Pause";
+let lap = [];
+let lapCounter = 0;
+
+// stopwatch function
+const stopwatch = () => {
+  msec += 10;
+  titleMilliseconds.innerHTML = msec;
+  if (msec === 1000) {
+    sec++;
+    msec = 0;
+    if (sec < 10) {
+      titleSeconds.innerText = "0" + sec;
+    } else {
+      titleSeconds.innerText = sec;
+    };
+    if (sec >= 59) {
+      min++;
+      sec = 0;
+      if (min < 10) {
+        titleMinutes.innerText = "0" + min;
+      } else {
+        titleMinutes.innerText = min;
+      };
+      if (min >= 59) {
+        hr++;
+        min = 0;
+        titleHours.innerText = hr;
+      }
+    }
+  }
+};
+
+// start button handler
+const startButtonHandler = () => {
+  if (switcher === "Pause") {
+    interval = setInterval(stopwatch, 10);
+    startButton.innerText = "Pause";
+    switcher = "Start";
+  } else {
+    startButton.innerText = "Start";
+    clearInterval(interval);
+    switcher = "Pause";
+  }
+}
+
+// add event listener to start button
+startButton.addEventListener("click", startButtonHandler);
+
+// lap button handler
+const lapButtonHandler = () => {
+  const ul = document.createElement("ul");
+  ul.id = "laps-list";
+  laps.appendChild(ul);
+  const li = document.createElement("li");
+  lapCounter++;
+  li.innerText = `${lapCounter}) ${hr} : ${min} : ${sec}: ${msec}`;
+  ul.appendChild(li);
+}
+
+// add event listener to lap button
+lapButton.addEventListener("click", lapButtonHandler);
+
+// reset button handler
+const resetButtonHandler = () => {
+  window.location.reload();
+};
+
+// add event listener to reset button
+resetButton.addEventListener("click", resetButtonHandler);
+
+
+
+
+/*
+let msecs = 0;
+let secs = 0;
+let mins = 0;
+let hrs = 0;
+let onOff = "Start";
+let interval;
+
+const display = () => {
+  startButton.innerText = "Stop";
+  msecs += 10;
+  titleMilliseconds.innerText = msecs;
+  if (msecs === 1000) {
+    secs++;
+    msecs = 0;    
+    if (secs < 10) {
+      titleSeconds.innerText = "0" + secs;
+    } else {
+      titleSeconds.innerText = secs;
+    };    
+    if (secs >= 59) {
+      mins++;
+      secs = 0;      
+      if (mins < 10) {
+        titleMinutes.innerText = "0" + mins;
+      } else {
+        titleMinutes.innerText = mins;
+      };      
+      if (mins >= 59) {
+        hrs++;
+        mins = 0;        
+        titleHours.innerText = hrs;
+      }
+    };  
+  }
+
+  if (onOff = "Stop") {
+    startButton.addEventListener("click", () => {
+      clearInterval(interval);
+      startButton.innerText = "Start";
+    });
+  } else {
+    startButton.addEventListener("click", () => {
+      display();
+      startButton.innerText = "Stop";
+    });
+
+  }
+}
+
+let startTime;
+let elapsedTime = 0;
+const startButtonHandler = () => {
+  startTime = Date.now() - elapsedTime;
+  clearInterval(interval);
+  interval = setInterval(display, 10);
+}; 
+
+startButton.addEventListener("click", startButtonHandler);
+*/
